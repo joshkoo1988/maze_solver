@@ -1,7 +1,7 @@
 from objects import Point, Line
 
 class Cell:
-    def __init__(self,top_left,bottom_right,win,has_left_wall=True,has_right_wall=True,has_bottom_wall=True,has_top_wall=True):
+    def __init__(self,win,top_left,bottom_right,has_left_wall=True,has_right_wall=True,has_bottom_wall=True,has_top_wall=True):
         self.has_left_wall = has_left_wall
         self.has_right_wall = has_right_wall
         self.has_top_wall = has_top_wall
@@ -12,7 +12,11 @@ class Cell:
         self._y2 = bottom_right.y
         self._win = win
 
+        self._midpoint = Point(self._x1+((self._x2 - self._x1)//2),((self._y1 - self._y2)//2)+self._y2)
+
     def draw(self):
+        if self._win is None:
+            return
         bottom_left = Point(self._x1,self._y2)
         bottom_right = Point(self._x2,self._y2)
         top_left = Point(self._x1,self._y1)
@@ -30,3 +34,10 @@ class Cell:
         if self.has_top_wall:
             self.top_wall = Line(top_left,top_right)
             self._win.draw_line(self.top_wall)
+
+    def draw_move(self,to_cell,undo=False):
+        self.path = Line(self._midpoint,to_cell._midpoint)
+        if undo == False:
+            self._win.draw_line(self.path,"red")
+        elif undo == True:
+            self._win.draw_line(self.path,"gray")
