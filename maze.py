@@ -94,7 +94,6 @@ class Maze:
                 self._draw_cell(self._cells[i][j])
                 return
 
-
             direction_index = random.randrange(len(possible_directions))
             next_index = possible_directions[direction_index]
 
@@ -125,3 +124,66 @@ class Maze:
             for j in range(len(self._cells[i])):
                 self._cells[i][j].visited = False
                 #print(f"cell i{i}j{j} reset to {self._cells[i][j].visited}")
+
+    def solve(self):
+        return self.solve_r(0,0)
+
+
+    def solve_r(self,i,j):
+        last_col_index = len(self._cells) - 1
+        last_row_index = len(self._cells[last_col_index]) -1
+
+        current_cell = self._cells[i][j]
+        target_cell = self._cells[last_col_index][last_row_index]
+
+        self._animate()
+        current_cell.visited = True
+
+        if current_cell == target_cell:
+            return True
+        
+        directions = []
+
+        #up
+        if not current_cell.has_top_wall and not self._cells[i][j-1].visited and j > 0:
+            directions.append("up")
+        #down
+        if not current_cell.has_bottom_wall and not self._cells[i][j+1].visited and j < self.num_rows -1:
+            directions.append("down")
+        #left
+        if not current_cell.has_left_wall and not self._cells[i-1][j].visited and i > 0:
+            directions.append("left")
+        #right
+        if not current_cell.has_right_wall and not self._cells[i+1][j].visited and i < self.num_cols -1:
+            directions.append("right")
+        
+        for direction in directions:
+    
+            if direction == "up":
+                current_cell.draw_move(self._cells[i][j-1])
+                if self.solve_r(i,j-1):
+                    return True
+                else:
+                    current_cell.draw_move(self._cells[i][j-1],undo=True)
+            if direction == "down":
+                current_cell.draw_move(self._cells[i][j+1])
+                if self.solve_r(i,j+1):
+                    return True
+                else:
+                    current_cell.draw_move(self._cells[i][j+1],undo=True)
+            if direction == "left":
+                current_cell.draw_move(self._cells[i-1][j])
+                if self.solve_r(i-1,j):
+                    return True
+                else:
+                    current_cell.draw_move(self._cells[i-1][j],undo=True)
+            if direction == "right":
+                current_cell.draw_move(self._cells[i+1][j])
+                if self.solve_r(i+1,j):
+                    return True
+                else:
+                    current_cell.draw_move(self._cells[i+1][j],undo=True) 
+        return False
+
+            
+
