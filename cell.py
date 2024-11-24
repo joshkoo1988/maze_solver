@@ -1,7 +1,7 @@
 from objects import Point, Line
 
 class Cell:
-    def __init__(self,win,top_left,bottom_right,has_left_wall=True,has_right_wall=True,has_bottom_wall=True,has_top_wall=True):
+    def __init__(self,top_left,bottom_right,win=None,has_left_wall=True,has_right_wall=True,has_bottom_wall=True,has_top_wall=True):
         self.has_left_wall = has_left_wall
         self.has_right_wall = has_right_wall
         self.has_top_wall = has_top_wall

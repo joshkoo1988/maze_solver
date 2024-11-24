@@ -11,7 +11,7 @@ class Maze:
             num_cols,
             cell_size_x,
             cell_size_y,
-            win,
+            win=None,
             ):
         
         self.x1 = x1
@@ -36,7 +36,7 @@ class Maze:
                 point_1 = Point(x1, y1)
                 point_2 = Point(x2, y2)
 
-                self._cells[col].append(Cell(self.win, point_1, point_2))
+                self._cells[col].append(Cell(point_1, point_2,win=self.win))
 
         for col in self._cells:
             for cell in col:
