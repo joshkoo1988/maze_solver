@@ -12,7 +12,7 @@ class Cell:
         self._y2 = bottom_right.y
         self._win = win
 
-        self._midpoint = Point(self._x1+((self._x2 - self._x1)//2),((self._y1 - self._y2)//2)+self._y2)
+        self._midpoint = Point(self._x1 + (self._x2 - self._x1) // 2, self._y1 + (self._y2 - self._y1) // 2)
 
     def draw(self):
         if self._win is None:
