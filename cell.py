@@ -11,6 +11,7 @@ class Cell:
         self._y1 = top_left.y
         self._y2 = bottom_right.y
         self._win = win
+        self.visisted = False
 
         self._midpoint = Point(self._x1 + (self._x2 - self._x1) // 2, self._y1 + (self._y2 - self._y1) // 2)
 
@@ -25,15 +26,27 @@ class Cell:
         if self.has_bottom_wall:
             self.bottom_wall = Line(bottom_left,bottom_right)
             self._win.draw_line(self.bottom_wall)
+        else:
+            self.bottom_wall = Line(bottom_left,bottom_right)
+            self._win.draw_line(self.bottom_wall,"white")
         if self.has_left_wall:
             self.left_wall = Line(bottom_left,top_left)
             self._win.draw_line(self.left_wall)
+        else:
+            self.left_wall = Line(bottom_left,top_left)
+            self._win.draw_line(self.left_wall,"white")
         if self.has_right_wall:
             self.right_wall = Line(bottom_right,top_right)
             self._win.draw_line(self.right_wall)
+        else:
+            self.right_wall = Line(bottom_right,top_right)
+            self._win.draw_line(self.right_wall,"white")
         if self.has_top_wall:
             self.top_wall = Line(top_left,top_right)
             self._win.draw_line(self.top_wall)
+        else:
+            self.top_wall = Line(top_left,top_right)
+            self._win.draw_line(self.top_wall,"white")
 
     def draw_move(self,to_cell,undo=False):
         self.path = Line(self._midpoint,to_cell._midpoint)
