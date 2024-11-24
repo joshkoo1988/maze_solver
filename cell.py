@@ -11,7 +11,7 @@ class Cell:
         self._y1 = top_left.y
         self._y2 = bottom_right.y
         self._win = win
-        self.visisted = False
+        self.visited = False
 
         self._midpoint = Point(self._x1 + (self._x2 - self._x1) // 2, self._y1 + (self._y2 - self._y1) // 2)
 
